@@ -1,0 +1,26 @@
+{
+  "name": "projedoredesii",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulaoBR/ProjedoRedesII.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JulaoBR/ProjedoRedesII/issues"
+  },
+  "homepage": "https://github.com/JulaoBR/ProjedoRedesII#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "nodemon": "^1.14.3",
+    "socket.io": "^2.0.4"
+  }
+}
