@@ -22,6 +22,13 @@ $(function(){
      chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>")
  })
 
+ //para carregar as mensagens da digitadas
+ socket.on('new_message', function(messages){
+    for(message of messages){
+        renderMessage(message);
+    }
+})
+
  //Emit a username
  send_username.click(function(){
      socket.emit('change_username', {username : username.val()})

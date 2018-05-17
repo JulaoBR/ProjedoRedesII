@@ -28,7 +28,10 @@ io.on('connection', (socket) => {
 	console.log('New user connected')
 
 	//default username
-	socket.username = "Anonymous"
+    socket.username = "Anonymous"
+    
+    //armazena as mensagens
+    let messages = [];
 
     //listen on change_username
     socket.on('change_username', (data) => {
@@ -37,7 +40,9 @@ io.on('connection', (socket) => {
 
     //listen on new_message
     socket.on('new_message', (data) => {
+        messages.push(data);
         //broadcast the new message
+        console.log(messages);
         io.sockets.emit('new_message', {message : data.message, username : socket.username});
     })
 
