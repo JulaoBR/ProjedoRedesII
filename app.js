@@ -8,7 +8,6 @@ app.set('view engine', 'ejs')
 //middlewares
 app.use(express.static('public'))
 
-
 //rotas
 app.get('/', (req, res) => {
 	res.render('index')
@@ -29,18 +28,20 @@ io.on('connection', (socket) => {
 	console.log('New user connected')
 
 	//default username
-    socket.username = "Anonymous"  
+    socket.username = "Anonymous"
+    //cria uma variavel para hora
+    var time = new Date();  
 
     //listen on change_username
     socket.on('change_username', (data) => {
         socket.username = data.username
+        io.emit('new_user', {username: socket.username, hora: time.getHours() + ':' + time.getMinutes()});
     })
 
-    //listen on new_message
-    socket.on('new_message', (data) => {
-        //cria uma variavel para hora
-        var time = new Date();
+    io.emit('new_user', {username: socket.username, hora: time.getHours() + ':' + time.getMinutes()});
 
+    //listen on new_message
+    socket.on('new_message', (data) => {       
         //cria um objeto para savar as mensagens
         var messageObject = {
             author: socket.username,
@@ -56,7 +57,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('new_user', (data) => {
-        socket.emit('new_user', {username : socket.username})
+        socket.broadcast.emit('new_user', {username : socket.username})
     })
 
     //listen on typing

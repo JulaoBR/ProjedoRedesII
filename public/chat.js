@@ -11,11 +11,13 @@ $(function(){
  var feedback = $("#feedback")
 
  //Emitir mensagem
+ //quando o botao de enviar é precionado envia mensagem para o evento new_message no app.js
  send_message.click(function(){
      socket.emit('new_message', {message : message.val()})
  })
 
  //Ouça uma nova mensagem
+ //exibe a menagem no html, fica escutando alguem chamar esse evento
  socket.on("new_message", (data) => {
      feedback.html('');
      message.val('');
@@ -26,10 +28,11 @@ $(function(){
   socket.on("new_user", (data) => {
     feedback.html('');
     message.val('');
-    chatroom.append("<p><i>" + data.username + " entrou na sala..." + "</i></p>")
+    chatroom.append("<p><i>"+ data.hora + " " + data.username + " entrou na sala..." + "</i></p>")
 })
 
  //Emitir um nome de usuário
+ //aciona quando o botao de adicionar username é precionado
  send_username.click(function(){
      socket.emit('change_username', {username : username.val()})
  })
@@ -44,3 +47,4 @@ $(function(){
      feedback.html("<p><i>" + data.username + " is typing a message..." + "</i></p>")
  })
 });
+
