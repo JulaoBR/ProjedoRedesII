@@ -1,8 +1,8 @@
 $(function(){
-    //make connection
+//fazer conexão
  var socket = io.connect('http://localhost:3000')
 
- //buttons and inputs
+ //botões e entradas
  var message = $("#message")
  var username = $("#username")
  var send_message = $("#send_message")
@@ -10,36 +10,36 @@ $(function(){
  var chatroom = $("#chatroom")
  var feedback = $("#feedback")
 
- //Emit message
+ //Emitir mensagem
  send_message.click(function(){
      socket.emit('new_message', {message : message.val()})
  })
 
- //Listen on new_message
+ //Ouça uma nova mensagem
  socket.on("new_message", (data) => {
      feedback.html('');
      message.val('');
-     chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>")
+     chatroom.append("<p class='message'>" + data.hora + " " + data.username + ": " + data.message + "</p>")
  })
 
- //para carregar as mensagens da digitadas
- socket.on('new_message', function(messages){
-    for(message of messages){
-        renderMessage(message);
-    }
+  //Ouça uma nova mensagem
+  socket.on("new_user", (data) => {
+    feedback.html('');
+    message.val('');
+    chatroom.append("<p><i>" + data.username + " entrou na sala..." + "</i></p>")
 })
 
- //Emit a username
+ //Emitir um nome de usuário
  send_username.click(function(){
      socket.emit('change_username', {username : username.val()})
  })
 
- //Emit typing
+ //Emitir digitando
  message.bind("keypress", () => {
      socket.emit('typing')
  })
 
- //Listen on typing
+ //Ouvi quem esta digitando
  socket.on('typing', (data) => {
      feedback.html("<p><i>" + data.username + " is typing a message..." + "</i></p>")
  })

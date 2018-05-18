@@ -9,15 +9,16 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 
-//routes
+//rotas
 app.get('/', (req, res) => {
 	res.render('index')
 })
 
-//Listen on port 3000
+//Ouvir na port 3000
 server = app.listen(3000)
 
-
+//armazena as mensagens
+let messages = [];
 
 //socket.io instantiation
 const io = require("socket.io")(server)
@@ -28,10 +29,7 @@ io.on('connection', (socket) => {
 	console.log('New user connected')
 
 	//default username
-    socket.username = "Anonymous"
-    
-    //armazena as mensagens
-    let messages = [];
+    socket.username = "Anonymous"  
 
     //listen on change_username
     socket.on('change_username', (data) => {
@@ -40,10 +38,25 @@ io.on('connection', (socket) => {
 
     //listen on new_message
     socket.on('new_message', (data) => {
-        messages.push(data);
+        //cria uma variavel para hora
+        var time = new Date();
+
+        //cria um objeto para savar as mensagens
+        var messageObject = {
+            author: socket.username,
+            message: data.message,
+            hora: time.getHours() + ':' + time.getMinutes(),
+        };    
+
+        //salva as mensagens em uma variavel
+        messages.push(messageObject);
+        
         //broadcast the new message
-        console.log(messages);
-        io.sockets.emit('new_message', {message : data.message, username : socket.username});
+        io.sockets.emit('new_message', {message : data.message, username : socket.username, hora: time.getHours() + ':' + time.getMinutes()});
+    })
+
+    socket.on('new_user', (data) => {
+        socket.emit('new_user', {username : socket.username})
     })
 
     //listen on typing
