@@ -28,14 +28,12 @@
       margin: 0px;
   }
   
-  div#change_username, section#input_zone {
-      border: 5px outset rgb(7, 6, 10);
-  }
+
   
   div#change_username {
       height: 3%;
       display: inline-block;
-      background-color: rgb(250, 16, 16);
+      
   }
   
   section#chatroom {
