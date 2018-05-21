@@ -13,39 +13,41 @@ $(function(){
  //Emitir mensagem
  //quando o botao de enviar é precionado envia mensagem para o evento new_message no app.js
  send_message.click(function(){
-     socket.emit('new_message', {message : message.val()})
+     socket.emit('new_message', {message : message.val()});
  })
+
 
  //Ouça uma nova mensagem
  //exibe a menagem no html, fica escutando alguem chamar esse evento
  socket.on("new_message", (data) => {
      feedback.html('');
      message.val('');
-     chatroom.append("<p class='message'>" + data.hora + " " + data.username + ": " + data.message + "</p>")
- })
+     chatroom.append("<p class='message'>" + data.hora + " " + data.username + ": " + data.message + "</p>");
+ });
 
-  //Ouça uma nova mensagem
+  //evento para anunciar novo usuario no chat
   socket.on("new_user", (data) => {
     feedback.html('');
     message.val('');
-    chatroom.append("<p><i>"+ data.hora + " " + data.username + " entrou na sala..." + "</i></p>")
-})
+    chatroom.append("<p><i>"+ data.hora + " " + data.username + " entrou na sala..." + "</i></p>");
+});
 
  //Emitir um nome de usuário
  //aciona quando o botao de adicionar username é precionado
  send_username.click(function(){
-     socket.emit('change_username', {username : username.val()})
- })
+     socket.emit('change_username', {username : username.val()});
+ });
 
  //Emitir digitando
  message.bind("keypress", () => {
-     socket.emit('typing')
- })
+     socket.emit('typing');
+ });
 
  //Ouvi quem esta digitando
  socket.on('typing', (data) => {
-     feedback.html("<p><i>" + data.username + " esta digitando..." + "</i></p>")
+     feedback.html("<p><i>" + data.username + " esta digitando..." + "</i></p>");
  })
 });
+
 
 

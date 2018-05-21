@@ -37,7 +37,7 @@
   }
   
   section#chatroom {
-      border: 5px inset rgb(247, 5, 5);
+      border: 5px inset rgb(17, 11, 11);
       height: 85%;
       overflow: auto;
   }
@@ -45,7 +45,7 @@
   section#input_zone {
       height: 7%;
       text-align: center;
-      background-color: rgb(250, 9, 9);
+      background-color: rgb(8, 3, 3);
   }
   
   .vertical-align {

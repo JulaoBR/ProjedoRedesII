@@ -13,47 +13,47 @@
 
   <body>
  
-      <header>
-        <h1>Chat com Node.js e Socket.Io</h1>
-      </header>
+    <header>
+      <h1>Chat com Node.js e Socket.Io</h1>
+    </header>
          
-      <section id="chatroom">
-        <section id="feedback"></section>
-      </section>
+    <section id="chatroom">
+      <section id="feedback"></section>
+    </section>
 
-      <section id="input_zone"> 
-        <input id="message" class="vertical-align" type="text" autocomplete="off"/>
-        <button id="send_message" class="vertical-align" type="button" >Enviar</button>
-      </section>
+    <section id="input_zone"> 
+      <input id="message" class="vertical-align" type="text" autocomplete="off"/>
+      <button id="send_message" class="vertical-align" type="button" >Enviar</button>
+    </section>
 
       <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="padding:35px 50px;">
-          <h4>Entre com um nome</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
-          <section>
-            <div id="change_username">
-              <input id="username" type="text" autocomplete="off"/>
-              <button type="button" id="send_username" class="btn btn-success" data-dismiss="modal">Digite um UserName</button>
-            </div>
-          </section>
-        </div>
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header" style="padding:35px 50px;">
+            <h4>Entre com um nome</h4>
+          </div>
+          <div class="modal-body" style="padding:40px 50px;">
+            <section>
+              <div id="change_username">
+                <input id="username" type="text" autocomplete="off"/>
+                <button type="button" id="send_username" class="btn btn-success" data-dismiss="modal">Digite um UserName</button>
+              </div>
+            </section>
+          </div>
+          <div class="modal-footer">
+            <h4>Projeto II de Redes de Computadores.</h4>
+          </div>
+        </div>    
       </div>
-      
-    </div>
-  </div> 
-</div>
-       
+    </div> 
+
     <script src="chat.js"></script>
     <script>
       $(document).ready(function(){
         $("#myModal").modal('show');      
       });
-      </script>
+    </script>
   </body>
 </html>

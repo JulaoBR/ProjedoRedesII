@@ -15,9 +15,6 @@ app.get('/', (req, res) => {
 //Ouvir na port 3000
 server = app.listen(3000)
 
-//armazena as mensagens
-let messages = [];
-
 //socket.io instantiation
 const io = require("socket.io")(server)
 
@@ -26,39 +23,32 @@ io.on('connection', (socket) => {
 	console.log('New user connected')
 
 	//default username
-    socket.username = "Anonymous"
+    socket.username = "Anonimo"
     //cria uma variavel para hora
     var time = new Date();  
 
     //listen on change_username
     socket.on('change_username', (data) => {
+        //caso o usuario digitou um nome, ele é colocado na variavel username
         if(data.username != "")
             socket.username = data.username
 
+        //se nao ele manda o Anonimo que é setado no inicio 
         io.emit('new_user', {username: socket.username, hora: time.getHours() + ':' + time.getMinutes()});
     })
   
     //listen on new_message
-    socket.on('new_message', (data) => {       
-        //cria um objeto para savar as mensagens
-        var messageObject = {
-            author: socket.username,
-            message: data.message,
-            hora: time.getHours() + ':' + time.getMinutes(),
-        };    
-
-        //salva as mensagens em uma variavel
-        messages.push(messageObject);
-        
+    socket.on('new_message', (data) => {               
         //broadcast the new message
         io.sockets.emit('new_message', {message : data.message, username : socket.username, hora: time.getHours() + ':' + time.getMinutes()});
     })
 
+    //anuncia novo usuario no chat
     socket.on('new_user', (data) => {
         socket.broadcast.emit('new_user', {username : socket.username})
     })
 
-    //listen on typing
+    //mostra usuario escrevendo
     socket.on('typing', (data) => {
     	socket.broadcast.emit('typing', {username : socket.username})
     })
